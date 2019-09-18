@@ -32,12 +32,12 @@ class TextViewController: UIViewController {
 
         notificationCenter.addObserver(self,
                                        selector: #selector(TextViewController.handleKeyboardNotification(_:)),
-                                       name: NSNotification.Name.UIKeyboardWillShow,
+                                       name: UIResponder.keyboardWillShowNotification,
                                        object: nil)
         
         notificationCenter.addObserver(self,
                                        selector: #selector(TextViewController.handleKeyboardNotification(_:)),
-                                       name: NSNotification.Name.UIKeyboardWillHide,
+                                       name: UIResponder.keyboardWillHideNotification,
                                        object: nil)
     }
 
@@ -45,8 +45,8 @@ class TextViewController: UIViewController {
         super.viewDidDisappear(animated)
         
         let notificationCenter = NotificationCenter.default
-        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     // MARK: - Keyboard Event Notifications
@@ -57,18 +57,18 @@ class TextViewController: UIViewController {
 
         // Get information about the animation.
         var animationDuration: TimeInterval = 0
-        if let value = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber {
+        if let value = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {
            animationDuration = value.doubleValue
         }
 
         // Convert the keyboard frame from screen to view coordinates.
         var keyboardScreenBeginFrame = CGRect()
-        if let value = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue) {
+        if let value = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue) {
             keyboardScreenBeginFrame = value.cgRectValue
         }
         
         var keyboardScreenEndFrame = CGRect()
-        if let value = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue) {
+        if let value = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue) {
             keyboardScreenEndFrame = value.cgRectValue
         }
         
@@ -97,7 +97,7 @@ class TextViewController: UIViewController {
     // MARK: - Configuration
 
     func configureTextView() {
-        let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFontTextStyle.body)
+        let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
         let bodyFont = UIFont(descriptor: bodyFontDescriptor, size: 0)
             
         textView.font = bodyFont
@@ -128,16 +128,16 @@ class TextViewController: UIViewController {
         */
         let boldFontDescriptor = textView.font!.fontDescriptor.withSymbolicTraits(.traitBold)
         let boldFont = UIFont(descriptor: boldFontDescriptor!, size: 0)
-        attributedText.addAttribute(NSAttributedStringKey.font, value: boldFont, range: boldRange)
+        attributedText.addAttribute(NSAttributedString.Key.font, value: boldFont, range: boldRange)
 
         // Add highlight.
-		attributedText.addAttribute(NSAttributedStringKey.backgroundColor, value: UIColor(named: "Tint_Green_Color")!, range: highlightedRange)
+		attributedText.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(named: "Tint_Green_Color")!, range: highlightedRange)
 
         // Add underline.
-        attributedText.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: underlinedRange)
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: underlinedRange)
 
         // Add tint.
-        attributedText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(named: "Tint_Blue_Color")!, range: tintedRange)
+        attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "Tint_Blue_Color")!, range: tintedRange)
 
         // Add image attachment.
         let textAttachment = NSTextAttachment()
@@ -150,7 +150,7 @@ class TextViewController: UIViewController {
 
         // Append a space with matching font of the rest of the body text.
         let appendedSpace = NSMutableAttributedString(string: " ")
-        appendedSpace.addAttribute(NSAttributedStringKey.font, value: bodyFont, range: NSRange(location: 0, length: 1))
+        appendedSpace.addAttribute(NSAttributedString.Key.font, value: bodyFont, range: NSRange(location: 0, length: 1))
         attributedText.append(appendedSpace)
         
         textView.attributedText = attributedText

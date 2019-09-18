@@ -66,7 +66,8 @@ class PickerViewController: UIViewController {
     
     func configurePickerView() {
         // Show that a given row is selected. This is off by default.
-        pickerView.showsSelectionIndicator = true
+       ///Users/Shared/Testing/UIKitCatalogiOSCreatingandCustomizingUIKitControls/UIKitCatalog/PickerViewController.swift:69:20: 'showsSelectionIndicator' was deprecated in Mac Catalyst 13.0: This property has no effect on iOS 7 and later.
+        /// pickerView.showsSelectionIndicator = true
 
         // Set the default selected rows (the desired rows to initially select will vary from app to app).
         let selectedRows: [ColorComponent: Int] = [.red: 13, .green: 41, .blue: 24]
@@ -121,7 +122,7 @@ extension PickerViewController: UIPickerViewDelegate {
 		
 		// Set the foreground color for the entire attributed string.
 		let attributes = [
-			NSAttributedStringKey.foregroundColor: foregroundColor
+			NSAttributedString.Key.foregroundColor: foregroundColor
 		]
 		
 		let title = NSMutableAttributedString(string: "\(Int(colorValue))", attributes: attributes)

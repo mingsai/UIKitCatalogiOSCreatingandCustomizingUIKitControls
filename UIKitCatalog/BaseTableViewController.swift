@@ -21,7 +21,7 @@ class BaseTableViewController: UITableViewController {
 		navigationController?.delegate = self  // We cant to listen when we come and go on the nav stack.
 		
 		detailTargetChange = NotificationCenter.default.addObserver(
-			forName: NSNotification.Name.UIViewControllerShowDetailTargetDidChange,
+			forName: UIViewController.showDetailTargetDidChangeNotification,
 			object: nil,
 			queue: OperationQueue.main) { [unowned self] (_) in
 				// Whenever the target for showDetailViewController changes, update all of our cells
@@ -40,7 +40,7 @@ class BaseTableViewController: UITableViewController {
 	}
 	
 	deinit {
-		NotificationCenter.default.removeObserver(detailTargetChange)
+        NotificationCenter.default.removeObserver(detailTargetChange as Any)
 	}
 	
 	// MARK: Utility functions

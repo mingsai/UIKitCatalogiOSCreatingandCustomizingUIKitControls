@@ -35,7 +35,7 @@ class DetailViewManager: NSObject, UISplitViewControllerDelegate {
 	
 	// MARK: - UISplitViewControllerDelegate
 	
-	func targetDisplayModeForAction(in splitViewController: UISplitViewController) -> UISplitViewControllerDisplayMode {
+	func targetDisplayModeForAction(in splitViewController: UISplitViewController) -> UISplitViewController.DisplayMode {
 		return .allVisible
 	}
 	

@@ -100,14 +100,14 @@ class SegmentedControlViewController: UITableViewController {
         let font = UIFont(descriptor: captionFontDescriptor, size: 0)
 
         let normalTextAttributes = [
-            NSAttributedStringKey.foregroundColor: UIColor(named: "Tint_Purple_Color")!,
-            NSAttributedStringKey.font: font
+            NSAttributedString.Key.foregroundColor: UIColor(named: "Tint_Purple_Color")!,
+            NSAttributedString.Key.font: font
         ]
         customBackgroundSegmentedControl.setTitleTextAttributes(normalTextAttributes, for: .normal)
 
         let highlightedTextAttributes = [
-            NSAttributedStringKey.foregroundColor: UIColor(named: "Tint_Green_Color")!,
-            NSAttributedStringKey.font: font
+            NSAttributedString.Key.foregroundColor: UIColor(named: "Tint_Green_Color")!,
+            NSAttributedString.Key.font: font
         ]
         customBackgroundSegmentedControl.setTitleTextAttributes(highlightedTextAttributes, for: .highlighted)
 
